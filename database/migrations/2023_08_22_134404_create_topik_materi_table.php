@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateTopikMateriTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,10 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('topik_materi', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->string('alamat');
-            $table->string('no_telp');
+            $table->string('name', 100);
+            $table->foreignId('jenis_bidang_id')->constrained('jenis_bidang')->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +29,9 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('topik_materi');
+        // Schema::table('topik_materi', function (Blueprint $table) {
+        //     //
+        // });
     }
 }
